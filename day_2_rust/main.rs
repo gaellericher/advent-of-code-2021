@@ -1,6 +1,5 @@
 use std::io::{self, BufRead};
 use std::fs::File;
-use std::io::prelude::*;
 use std::path::Path;
 
 fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
