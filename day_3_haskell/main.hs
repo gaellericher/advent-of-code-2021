@@ -60,11 +60,11 @@ main = do
           "00010",
           "01010"
         ]
-  let gamma = (binToDec (gammaRate testReport))
-  let epsilon = (binToDec (epsilonRate testReport))
-  putStrLn $ show (gamma * epsilon)
+  let gamma = binToDec (gammaRate testReport)
+  let epsilon = binToDec (epsilonRate testReport)
+  print (gamma * epsilon)
 
-  content <- readFile ("./input")
-  let gamma = (binToDec (gammaRate (lines content)))
-  let epsilon = (binToDec (epsilonRate (lines content)))
-  putStrLn $ show (gamma * epsilon)
+  content <- readFile "./input"
+  let gamma = binToDec (gammaRate (lines content))
+  let epsilon = binToDec (epsilonRate (lines content))
+  print (gamma * epsilon)
