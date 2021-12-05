@@ -5,11 +5,7 @@ import Text.PrettyPrint.HughesPJClass (Pretty (pPrint))
 
 main :: IO ()
 countZero :: String -> [Int]
-countZero sq = case sq of
-  [] -> []
-  ('0' : q) -> 1 : countZero q
-  ('1' : q) -> 0 : countZero q
-  (_ : _) -> []
+countZero = map (\ i -> if i == '0' then 1 else 0)
 
 sumEachPos :: [Int] -> [Int] -> [Int]
 sumEachPos [] [] = []
@@ -35,7 +31,7 @@ invert l = case l of
 
 binToDec :: String -> Int
 binToDec [] = 0
-binToDec ('1' : q) = 2 ^ length  q + binToDec q
+binToDec ('1' : q) = 2 ^ length q + binToDec q
 binToDec (_ : q) = binToDec q
 
 gammaRate :: [String] -> String
