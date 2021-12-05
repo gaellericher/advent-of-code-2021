@@ -17,6 +17,7 @@ sumEachPos (i : is) [] = i : is
 sumEachPos [] (j : js) = j : js
 sumEachPos (i : is) (j : js) = i + j : sumEachPos is js
 
+-- Ideally some common operator would do this ;/
 sumEachPosL :: [[Int]] -> [Int]
 sumEachPosL [] = []
 sumEachPosL (x : y : s) = sumEachPos (sumEachPos x y) (sumEachPosL s)
@@ -30,14 +31,12 @@ mostCommon n iq = case iq of
 invert :: String -> String
 invert l = case l of
   [] -> []
-  ('0' : q) -> '1' : invert (q)
-  ('1' : q) -> '0' : invert (q)
+  (i : q) -> (if i == '0' then '1' else '0') : invert q
 
 binToDec :: String -> Int
-binToDec l = case l of
-  [] -> 0
-  ('1' : q) -> 2 ^ (length q) + (binToDec q)
-  ('0' : q) -> binToDec q
+binToDec [] = 0
+binToDec ('1' : q) = 2 ^ length  q + binToDec q
+binToDec (_ : q) = binToDec q
 
 gammaRate :: [String] -> String
 gammaRate l = mostCommon (div (length l) 2) (sumEachPosL (map countZero l))
