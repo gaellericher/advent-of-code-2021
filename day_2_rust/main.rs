@@ -15,7 +15,7 @@ fn get_position_after_p1(pos:[i32;2], instruction: &str) -> [i32; 2] {
     let x:i32 = vec[1].parse::<i32>().unwrap();
 
     let delta:[i32;2] = match way {
-        "forward"=> [x,0],
+        "forward"=> [x, 0],
         "down"=>[0, x],
         "up"=> [0, -x],
         _=> [0,0]
@@ -33,7 +33,7 @@ fn get_position_after_p2(pos: [i32;3], instruction: &str) -> [i32; 3] {
         "forward"=> [x, pos[2]*x, 0],
         "down"=>[0, 0, x],
         "up"=> [0, 0,-x],
-        _=> [0,0,0]
+        _=> [0, 0, 0]
     };
     let ret:[i32;3] = [pos[0]+delta[0], pos[1]+delta[1], pos[2]+delta[2]];
     return ret

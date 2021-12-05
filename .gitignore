@@ -1,3 +1,5 @@
 venv
 .idea
 */main
+*.o
+*.hi
