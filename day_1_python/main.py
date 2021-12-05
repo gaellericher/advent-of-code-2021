@@ -1,4 +1,4 @@
-from os.path import join, realpath
+from os.path import join, dirname
 
 
 def count_increase(l):
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     assert (sum_sliding_window(test_lines, 3) == sum_test_lines)
     assert (count_increase(sum_sliding_window(test_lines, 3)) == 5)
 
-    with open(join(realpath(__file__), "day_1_input"), "r") as f:
+    with open(join(dirname(__file__), "input"), "r") as f:
         actual_lines = [int(v) for v in f.readlines()]
         print(count_increase(actual_lines))
         print(count_increase(sum_sliding_window(actual_lines, window_size=3)))
