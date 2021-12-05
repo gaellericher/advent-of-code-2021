@@ -9,39 +9,71 @@ where P: AsRef<Path>, {
     Ok(io::BufReader::new(file).lines())
 }
 
-fn get_position_after(x : i32, y: i32, instruction: &str) -> [i32; 2] {
+fn get_position_after_p1(pos:[i32;2], instruction: &str) -> [i32; 2] {
     let vec = instruction.split(" ").collect::<Vec<&str>>();
     let way = vec[0];
-    let distance:i32 = vec[1].parse::<i32>().unwrap();
+    let x:i32 = vec[1].parse::<i32>().unwrap();
 
     let delta:[i32;2] = match way {
-        "forward"=> [distance,0],
-        "down"=>[0, distance],
-        "up"=> [0, -distance],
+        "forward"=> [x,0],
+        "down"=>[0, x],
+        "up"=> [0, -x],
         _=> [0,0]
     };
-    let ret:[i32;2] = [x+delta[0], y+delta[1]];
+    let ret:[i32;2] = [pos[0]+delta[0], pos[1]+delta[1]];
     return ret
 }
+
+fn get_position_after_p2(pos: [i32;3], instruction: &str) -> [i32; 3] {
+    let vec = instruction.split(" ").collect::<Vec<&str>>();
+    let way = vec[0];
+    let x:i32 = vec[1].parse::<i32>().unwrap();
+
+    let delta:[i32;3] = match way {
+        "forward"=> [x, pos[2]*x, 0],
+        "down"=>[0, 0, x],
+        "up"=> [0, 0,-x],
+        _=> [0,0,0]
+    };
+    let ret:[i32;3] = [pos[0]+delta[0], pos[1]+delta[1], pos[2]+delta[2]];
+    return ret
+}
+
 
 fn main() {
     let test_lines: [&str; 6] = [
         "forward 5", "down 5", "forward 8", "up 3", "down 8", "forward 2"
     ];
-    let mut pos = [0, 0];
+    let mut pos_1 = [0, 0];
     for line in test_lines {
-        pos = get_position_after(pos[0], pos[1], line);
-        println!("{} -> ({},{})", line, pos[0], pos[1]);
+        pos_1 = get_position_after_p1(pos_1, line);
+        println!("{} -> ({},{})", line, pos_1[0], pos_1[1]);
     }
-    assert_eq!(pos[0]*pos[1], 150);
+    assert_eq!(pos_1[0]*pos_1[1], 150);
+
+    let mut pos_2 = [0, 0, 0];
+    for line in test_lines {
+        pos_2 = get_position_after_p2(pos_2, line);
+        println!("{} -> ({},{},{})", line, pos_2[0], pos_2[1], pos_2[2]);
+    }
+    assert_eq!(pos_2[0]*pos_2[1], 900);
 
     if let Ok(lines) = read_lines("./input") {
-        let mut pos = [0, 0];
+        let mut pos_1 = [0, 0];
         for line in lines {
             if let Ok(instruction) = line {
-                pos = get_position_after(pos[0], pos[1], instruction.as_str());
+                pos_1 = get_position_after_p1(pos_1, instruction.as_str());
             }
         }
-        println!("{}", pos[0]*pos[1]);
+        println!("{}", pos_1[0]*pos_1[1]);
+    }
+    if let Ok(lines) = read_lines("./input") {
+        let mut pos_2 = [0, 0, 0];
+        for line in lines {
+            if let Ok(instruction) = line {
+                pos_2 = get_position_after_p2(pos_2, instruction.as_str());
+            }
+        }
+        println!("{}", pos_2[0]*pos_2[1]);
     }
 }
