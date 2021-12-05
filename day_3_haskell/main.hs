@@ -7,14 +7,14 @@ main :: IO ()
 countZero :: String -> [Int]
 countZero sq = case sq of
   [] -> []
-  ('0' : q) -> 1 : countZero (q)
-  ('1' : q) -> 0 : countZero (q)
+  ('0' : q) -> 1 : countZero q
+  ('1' : q) -> 0 : countZero q
   (_ : _) -> []
 
 sumEachPos :: [Int] -> [Int] -> [Int]
 sumEachPos [] [] = []
-sumEachPos (i : is) [] = (i : is)
-sumEachPos [] (j : js) = (j : js)
+sumEachPos (i : is) [] = i : is
+sumEachPos [] (j : js) = j : js
 sumEachPos (i : is) (j : js) = i + j : sumEachPos is js
 
 sumEachPosL :: [[Int]] -> [Int]
